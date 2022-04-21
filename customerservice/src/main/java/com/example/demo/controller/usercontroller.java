@@ -12,4 +12,9 @@ public class usercontroller {
 	public String hello() {
 		return "hello checkup run";
 	}
+	
+	@GetMapping("/lol")
+	public String helloworld() {
+		return "hello world";
+	}
 }
