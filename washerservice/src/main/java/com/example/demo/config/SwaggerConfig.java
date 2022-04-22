@@ -21,7 +21,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWoiLCJleHAiOjE2NTA2NDM0OTksImlhdCI6MTY1MDYwNzQ5OX0.fMqW8f-8q4_3MwK9XlPPuHDQBDnB0PWlKNBC2BylCCQ
 
 @Configuration
 @EnableSwagger2
