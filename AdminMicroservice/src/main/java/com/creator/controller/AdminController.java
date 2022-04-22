@@ -48,7 +48,7 @@ public class AdminController {
 	@Autowired
 	private RatingRepository ratingRepository;
 	
-	//adding admin
+	//adding an admin
 	@PostMapping("/addadmin")
 	public Admin addAdmin(@RequestBody Admin admin) {
 		return adminService.addAdmin(admin);
