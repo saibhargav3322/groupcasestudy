@@ -11,14 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.BadCredentialsException;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,18 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.exception.ApiRequestException;
-import com.example.demo.model.AuthenticationRequest;
-import com.example.demo.model.AuthenticationResponse;
-//import com.example.demo.model.AuthenticationRequest;
-//import com.example.demo.model.AuthenticationResponse;
+
 import com.example.demo.model.OrderDetails;
 import com.example.demo.model.Ratings;
 import com.example.demo.model.WasherDetails;
 import com.example.demo.repo.WasherRepository;
-import com.example.demo.service.MyUserDetailsService;
-//import com.example.demo.service.MyUserDetailsService;
 import com.example.demo.service.WasherService;
-import com.example.demo.util.JwtUtil;
 
 
 
@@ -55,41 +42,13 @@ public class WasherController {
 	@Autowired
 	private WasherRepository repo;
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
 	
-	@Autowired
-	private JwtUtil jwtTokenUtil;
 	
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Autowired
-	private MyUserDetailsService userDetailsService;
 	
-	
-	
-   @PostMapping("/auth")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-
-		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-			);
-		}
-		catch (BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
-		}
-
-
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
-
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
-	}
-	
+   
 	@PostMapping(value = "/addwasher")
 	public WasherDetails saveWasher(@Valid @RequestBody WasherDetails washer) {
 		return service.addWasher(washer);
