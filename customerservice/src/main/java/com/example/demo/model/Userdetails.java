@@ -1,18 +1,23 @@
 package com.example.demo.model;
 
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.validation.annotation.Validated;
 
-
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.executable.ValidateOnExecution;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 
 @Document(collection="Userdata")
 public class Userdetails {
 	
 	@Id
-	int id;
+	
+	long id;
 	
 	@NotEmpty(message = "Name must not be empty")
 	String name;
@@ -23,10 +28,10 @@ public class Userdetails {
 	@NotEmpty(message = "Password must not be empty")
 	String password;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -48,7 +53,7 @@ public class Userdetails {
 		this.password = password;
 	}
 	
-	public Userdetails(int id, String name, String location,String password) {
+	public Userdetails(long id, String name, String location,String password) {
 		super();
 		this.id = id;
 		this.name = name;
