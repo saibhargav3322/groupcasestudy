@@ -1,47 +1,87 @@
 package com.example.demo.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
-import javax.validation.constraints.NotEmpty;
-
-import org.springframework.data.annotation.Id;
-
-@Document(collection="Ratings")
+@Document(collection="ratings")
 public class Ratings {
 	
 	@Id
-	@NotEmpty(message = "Rating must not be empty")
-	static
-	int rating;
+	int id;
 	
-	@NotEmpty(message = "Name must not be empty")
-	static
-	String washerName;
-	static String comment;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	int customer_id;
+	int washerid;
+	public int getCustomer_id() {
+		return customer_id;
+	}
+
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
+	}
+
+	public int getWasherid() {
+		return washerid;
+	}
+
+	public void setWasherid(int washer_id) {
+		this.washerid = washer_id;
+	}
+
+	private int rating;
+	private String WasherName;
+	private String Comment;
 	
-	public static int getRating() {
+	public Ratings() {
+		
+	}
+
+
+
+	public Ratings(int id, int customer_id, int washerid, int rating, String washerName, String comment) {
+		super();
+		this.id = id;
+		this.customer_id = customer_id;
+		this.washerid = washerid;
+		this.rating = rating;
+		WasherName = washerName;
+		Comment = comment;
+	}
+
+	public int getRating() {
 		return rating;
 	}
+
 	public void setRating(int rating) {
-		Ratings.rating = rating;
+		this.rating = rating;
 	}
-	public static String getWasherName() {
-		return washerName;
+
+	public String getWasherName() {
+		return WasherName;
 	}
+
 	public void setWasherName(String washerName) {
-		Ratings.washerName = washerName;
+		WasherName = washerName;
 	}
-	public static String getComment() {
-		return comment;
+
+	public String getComment() {
+		return Comment;
 	}
+
 	public void setComment(String comment) {
-		Ratings.comment = comment;
+		Comment = comment;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "RatingDetails [rating=" + rating + ", washerName=" + washerName + ", comment=" + comment + "]";
+		return "Ratings [rating=" + rating + ", WasherName=" + WasherName + ", Comment=" + Comment + "]";
 	}
 	
 }

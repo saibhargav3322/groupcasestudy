@@ -136,7 +136,8 @@ public class UserController {
 	
 	 @GetMapping("/allpacks")
 	 public List<WashPacks> getwashpacks(){
-		 String baseurl="http://localhost:7070/admin/allpacks";
+		 //String baseurl="http://localhost:9094/admin/allpacks";
+		 String baseurl="http://admin-service/admin/allpacks";
 		 WashPacks[] washPacks=restTemplate.getForObject(baseurl, WashPacks[].class);
 		return Arrays.asList(washPacks);
 	 }
@@ -158,7 +159,7 @@ public class UserController {
 	      HttpEntity<Ratings> entity = new HttpEntity<Ratings>(rating,headers);
 	      
 	      return restTemplate.exchange(
-	         "http://localhost:7070/admin/addrating", HttpMethod.POST, entity, String.class).getBody();
+	         "http://admin-service/admin/addRating", HttpMethod.POST, entity, String.class).getBody();
 	    }
 		
 		@PostMapping("/addorder")
