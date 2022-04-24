@@ -44,6 +44,9 @@ public class WasherDetails {
 		this.location = location;
 		this.password = password;
 	}
+	public WasherDetails() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "WasherDetails [id=" + id + ", name=" + name + ", location=" + location + ", password=" + password + "]";

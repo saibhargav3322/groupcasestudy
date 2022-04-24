@@ -12,4 +12,8 @@ public interface WasherRepository extends MongoRepository<WasherDetails, Integer
 
 	WasherDetails findByName(String name);
 
+	Optional<WasherDetails> findAllBylocation(String location);
+
+	Optional<WasherDetails> findAllById(String location);
+
 }

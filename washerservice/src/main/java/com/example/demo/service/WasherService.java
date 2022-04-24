@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,20 @@ public class WasherService {
 		return washers;
 	}
 
-	public Optional<WasherDetails> getwasherbylocation(String location) {
-		Optional<WasherDetails> washers = repository.findBylocation(location);
-		return washers;
+	public List<WasherDetails> getwasherbylocation(String location) {
+		List<WasherDetails> washers = repository.findAll();
+		List<WasherDetails> a=new ArrayList<>();
+		for(int i=0;i<washers.size();i++)
+		{
+			WasherDetails w=new WasherDetails();
+			w=washers.get(i);
+			if(w.getLocation().equals(location))
+			{
+				System.out.println(w.getLocation());
+				a.add(washers.get(i));
+			}
+		}
+		return a;
 	}
 
 	public void deletewasher(WasherDetails washer) {

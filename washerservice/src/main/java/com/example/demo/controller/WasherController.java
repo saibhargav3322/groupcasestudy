@@ -60,7 +60,7 @@ public class WasherController {
 	}
 
 	@GetMapping("/allwashers/{location}")
-	public Optional<WasherDetails> findwasherByAddress(@PathVariable String location) {
+	public List<WasherDetails> findwasherByAddress(@PathVariable String location) {
 		return service.getwasherbylocation(location);
 	}
 
@@ -77,9 +77,9 @@ public class WasherController {
 				.orElseThrow( () -> new ApiRequestException("WASHER NOT FOUND WITH THIS ID ::")));
 	}
 	
-	@GetMapping("/allratings")
-	public List<Ratings> getallratings(){
-		String baseurl="http://localhost:7070/admin/allratings";
+	@GetMapping("/allratings/{id}")
+	public List<Ratings> getallratings(@PathVariable int id){
+		String baseurl="http://admin-service/admin/allratings/"+id;
 		Ratings[] allratings=restTemplate.getForObject(baseurl, Ratings[].class);
 		
 		return Arrays.asList(allratings);
