@@ -1,9 +1,12 @@
 package com.creator.controller;
 
+import java.util.Arrays;
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,9 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.creator.model.Admin;
+import com.creator.model.OrderDetails;
 import com.creator.model.Ratings;
+import com.creator.model.Userdetails;
+import com.creator.model.WasherDetails;
 import com.creator.model.WasherPack;
 import com.creator.repository.AdminRepository;
 import com.creator.repository.RatingRepository;
@@ -27,7 +34,7 @@ import com.creator.service.WasherPackService;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
@@ -47,6 +54,9 @@ public class AdminController {
 	
 	@Autowired
 	private RatingRepository ratingRepository;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	//adding an admin
 	@PostMapping("/addadmin")
@@ -107,8 +117,46 @@ public class AdminController {
 		return "Thanks for your valuable feedback";
 	}
 	
-	@GetMapping("/hello")
-	public String sayHi() {
-		return "Hello";
+	//get all ratings
+	@GetMapping("/allratings")
+	public List<Ratings> getRatings(){
+		return ratingRepository.findAll();
+	}
+	
+	//get all ratings by id
+	@GetMapping("/allratings/{washer_id}")
+	public List<Ratings> getRatingsbyid(@PathVariable int washer_id){
+		
+		 return ratingService.allRatingsbyid(washer_id);
+	}
+	
+	
+	//all customers
+	@GetMapping("/allcustomers")
+	public List<Userdetails> findAllUsers()
+	{
+		String baseurl="http://Customer-service/user/allusers";
+		Userdetails[] allusers=restTemplate.getForObject(baseurl, Userdetails[].class);
+		
+		return Arrays.asList(allusers);
+	}
+	
+	//all washers
+	@GetMapping("/allwashers")
+	public List<WasherDetails> findAllWashers()
+	{
+		String baseurl="http://WASHER-SERVICE/washer/allwashers";
+		WasherDetails[] allwashers=restTemplate.getForObject(baseurl, WasherDetails[].class);
+		
+		return Arrays.asList(allwashers);
+	}
+	
+	//all orders
+	@GetMapping("/allorders")
+	public List<OrderDetails> getallorders(){
+		String baseurl="http://localhost:8081/allorders";
+		OrderDetails[] allorders=restTemplate.getForObject(baseurl, OrderDetails[].class);
+		
+		return Arrays.asList(allorders);
 	}
 }
