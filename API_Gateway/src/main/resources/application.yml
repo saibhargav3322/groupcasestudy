@@ -1,0 +1,36 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: Customer-service
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/user/**
+          filters:
+              - StripPrefix=1
+        - id: admin-service
+          uri: lb://ADMIN-SERVICE
+          predicates:
+            - Path=/admin/**
+          filters:
+              - StripPrefix=1
+        - id: WASHER-SERVICE
+          uri: lb://WASHER-SERVICE
+          predicates:
+            - Path=/washer/**
+          filters:
+              - StripPrefix=1
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
