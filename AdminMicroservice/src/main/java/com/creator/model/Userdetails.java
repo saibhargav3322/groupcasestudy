@@ -1,40 +1,36 @@
 package com.creator.model;
 
 
-import org.springframework.data.mongodb.core.index.Indexed;
-
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.executable.ValidateOnExecution;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 @Document(collection="Userdata")
 public class Userdetails {
-	
 	@Id
-	
-	long id;
+	ObjectId id;
 	
 	@NotEmpty(message = "Name must not be empty")
 	String name;
-	
+
+
 	@NotEmpty(message = "Location must not be empty")
 	String location;
 	
 	@NotEmpty(message = "Password must not be empty")
 	String password;
+	
+	String gmail;
+	String username;
 
-	public long getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	public String getName() {
 		return name;
 	}
@@ -54,15 +50,31 @@ public class Userdetails {
 		this.password = password;
 	}
 	
-	public Userdetails(long id, String name, String location,String password) {
+	public Userdetails() {
 		super();
-		this.id = id;
+	}
+	
+	public String getGmail() {
+		return gmail;
+	}
+	public void setGmail(String gmail) {
+		this.gmail = gmail;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public Userdetails( @NotEmpty(message = "Name must not be empty") String name,
+			@NotEmpty(message = "Location must not be empty") String location,
+			@NotEmpty(message = "Password must not be empty") String password, String gmail, String username) {
+		super();
 		this.name = name;
 		this.location = location;
 		this.password = password;
-	}
-	public Userdetails() {
-		
+		this.gmail = gmail;
+		this.username = username;
 	}
 	
 	@Override
