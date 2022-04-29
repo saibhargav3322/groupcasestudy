@@ -26,7 +26,7 @@ public class RatingController {
 	
 	@PostMapping("/addRating")
 	public String saveRating(@RequestBody Ratings rating) {
-		ratingRepository.save(rating);
+		ratingRepository.insert(rating);
 		return "Thanks for your valuable feedback";
 	}
 	
@@ -37,10 +37,10 @@ public class RatingController {
 	}
 	
 	//get all ratings by id
-	@GetMapping("/allratings/{washer_id}")
-	public List<Ratings> getRatingsbyid(@PathVariable int washer_id){
+	@GetMapping("/allratings/{washer_username}")
+	public List<Ratings> getRatingsbyusername(@PathVariable String washer_username){
 		
-		 return ratingService.allRatingsbyid(washer_id);
+		 return ratingService.allRatingsbyusername(washer_username);
 	}
 
 }

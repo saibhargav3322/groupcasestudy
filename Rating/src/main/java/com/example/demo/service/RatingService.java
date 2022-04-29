@@ -38,14 +38,14 @@ public class RatingService {
 	
 	
 	//view all ratings by id
-	public List<Ratings> allRatingsbyid(int washerid){
+	public List<Ratings> allRatingsbyusername(String washerusername){
 		List<Ratings> ratings = ratingRepository.findAll();
 		List<Ratings> a=new ArrayList<>();
 		for(int i=0;i<ratings.size();i++)
 		{
 			Ratings w=new Ratings();
 			w=ratings.get(i);
-			if(w.getWasherid()==washerid)
+			if(w.getWasher_username().equals(washerusername))
 			{
 				//System.out.println(w.getLocation());
 				a.add(ratings.get(i));

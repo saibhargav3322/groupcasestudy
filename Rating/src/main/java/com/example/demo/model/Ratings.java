@@ -1,87 +1,79 @@
 package com.example.demo.model;
 
+import org.bson.types.ObjectId;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
+
+
 
 @Document(collection="RatingData")
 public class Ratings {
 	
-	@Id
-	int id;
+
 	
-	public int getId() {
+	ObjectId id=ObjectId.get();
+	
+	String customer_username;
+	
+	public ObjectId getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
-
-	int customer_id;
-	int washerid;
-	public int getCustomer_id() {
-		return customer_id;
+	public String getCustomer_username() {
+		return customer_username;
 	}
-
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomer_username(String customer_username) {
+		this.customer_username = customer_username;
 	}
-
-	public int getWasherid() {
-		return washerid;
-	}
-
-	public void setWasherid(int washer_id) {
-		this.washerid = washer_id;
-	}
-
-	private int rating;
-	private String WasherName;
-	private String Comment;
-	
 	public Ratings() {
-		
-	}
-
-
-
-	public Ratings(int id, int customer_id, int washerid, int rating, String washerName, String comment) {
 		super();
-		this.id = id;
-		this.customer_id = customer_id;
-		this.washerid = washerid;
-		this.rating = rating;
-		WasherName = washerName;
-		Comment = comment;
 	}
+	public Ratings(String washer_username, String comment,
+			int rating) {
+		super();
+		this.washer_username = washer_username;
+		this.comment = comment;
+		this.rating = rating;
+	}
+	String washer_username;
+	
+	String comment;
+	int rating;
+//public Ratings() {
+//		super();
+//	}
+//public Ratings(String washer_username, String comment, int rating) {
+//		super();
+//		this.washer_username = washer_username;
+//		this.comment = comment;
+//		this.rating = rating;
+//	}
 
+	public String getWasher_username() {
+		return washer_username;
+	}
+	public void setWasher_username(String washer_username) {
+		this.washer_username = washer_username;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public int getRating() {
 		return rating;
 	}
-
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
-	public String getWasherName() {
-		return WasherName;
-	}
-
-	public void setWasherName(String washerName) {
-		WasherName = washerName;
-	}
-
-	public String getComment() {
-		return Comment;
-	}
-
-	public void setComment(String comment) {
-		Comment = comment;
-	}
-
-	@Override
-	public String toString() {
-		return "Ratings [rating=" + rating + ", WasherName=" + WasherName + ", Comment=" + Comment + "]";
-	}
-	
+//	@Override
+//	public String toString() {
+//		return "Ratings [rating=" + rating + ", WasherName=" + WasherName + ", Comment=" + Comment + "]";
+//	}
 }

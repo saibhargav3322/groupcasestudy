@@ -13,7 +13,7 @@ import com.example.demo.model.Ratings;
 
 public interface RatingRepository extends MongoRepository<Ratings, Integer>{
 
-	Optional<Ratings> findBywasherid(int washerid);
+	//Optional<Ratings> findBywasherid(int washerid);
 
 	
 
