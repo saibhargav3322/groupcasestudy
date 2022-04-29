@@ -31,7 +31,7 @@ public class WasherPackController {
 	//add pack
 		@PostMapping("/addpack")
 		public String savePack(@RequestBody WasherPack pack) {
-			washerRepository.save(pack);
+			washerRepository.insert(pack);
 			return "Pack saved successfully with id: "+pack.getId();
 		}
 		
