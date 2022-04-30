@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,11 +190,34 @@ public class WasherController {
 	//get all the pending orders
 	@GetMapping("/allorders")
 	public List<OrderDetails> getallorders(){
-		String baseurl="http://localhost:8081/allorders";
-		OrderDetails[] allorders=restTemplate.getForObject(baseurl, OrderDetails[].class);
+
+		String baseurl="http://order-service/order/orderbylocation/"+service.getdetails().getLocation();
 		
-		return Arrays.asList(allorders);
+		OrderDetails[] l=restTemplate.getForObject(baseurl, OrderDetails[].class);
+		
+		return Arrays.asList(l);
 	}
+	
+	@GetMapping("/acceptanorder/{id}")
+	public String accept(@PathVariable ObjectId id)
+	{
+		String baseurl="http://order-service/order/changeaccepted/"+id+"/"+UserName;
+//		Map<String,ObjectId> m=new HashMap<String, ObjectId>();
+//		m.put("id", id );
+		
+		String s=restTemplate.getForObject(baseurl, String.class);
+		return s;
+	}
+	
+	@GetMapping("/completeanorder/{id}")
+	public String completed(@PathVariable ObjectId id)
+	{
+		String baseurl="http://order-service/order/changecompleted/"+id;		
+		String s=restTemplate.getForObject(baseurl, String.class);
+		return s;
+	}
+	
+	
 	@DeleteMapping("/deletebyusername/{washer_username}")
 	public String deletewasher(@PathVariable String washer_username)
 	{

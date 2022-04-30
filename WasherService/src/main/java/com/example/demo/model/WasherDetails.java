@@ -46,13 +46,13 @@ public class WasherDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public WasherDetails(String name, String location, String password, String Gmail,String Username) {
+	public WasherDetails(String name, String location, String password,String gmail,String username) {
 		super();
 		this.name = name;
 		this.location = location;
 		this.password = password;
-		this.gmail= Gmail;
-		this.username= Username;
+		this.gmail=gmail;
+		this.username=username;
 	}
 	public String getGmail() {
 		return gmail;
