@@ -29,5 +29,3 @@ public class MyUserDetailsService implements UserDetailsService {
     	
     }
 }
-
-//Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYWkiLCJleHAiOjE2NTExMDUxODAsImlhdCI6MTY1MTA2OTE4MH0.yH3g64BcSgTSN397l2ULdj5x0kcNjq89_gCoceNK1SQ
