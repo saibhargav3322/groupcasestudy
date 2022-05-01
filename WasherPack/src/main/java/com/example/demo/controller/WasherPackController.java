@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +40,12 @@ public class WasherPackController {
 		@GetMapping("/allpacks")
 		public List<WasherPack> getPack(){
 			return washerRepository.findAll();
+		}
+		
+		@GetMapping("/getpack/{id}")
+		public WasherPack byid(@PathVariable int id)
+		{
+			return washerRepository.findByid(id);
 		}
 		
 		//delete pack by id

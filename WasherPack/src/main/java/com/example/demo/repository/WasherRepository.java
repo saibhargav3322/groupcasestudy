@@ -8,4 +8,6 @@ import com.example.demo.model.WasherPack;
 
 public interface WasherRepository extends MongoRepository<WasherPack, Integer>{
 
+	WasherPack findByid(int id);
+
 }
