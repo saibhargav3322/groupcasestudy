@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.security.authentication.AuthenticationManager;
+
 //import org.springframework.security.authentication.BadCredentialsException;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -54,6 +57,7 @@ import com.google.common.base.Optional;
 
 @RestController
 @RequestMapping("/user/")
+@CrossOrigin("*")
 public class UserController {
 	
 	@Autowired
@@ -147,6 +151,12 @@ public class UserController {
 //		 }
 //	 }
 	 
+	 @GetMapping("/profile")
+	 public UserDetailsModel profile()
+	 {
+		 return repo.findByusername(username);
+	 }
+	 
 	 //update his own account
 	 @PutMapping("/update")
 	 public ResponseEntity<Object> updateown( @RequestParam String gmail,@RequestParam String location,
@@ -164,7 +174,7 @@ public class UserController {
 				 userdetails.setLocation(location);
 				 userdetails.setName(name);
 				 userdetails.setPassword(password);
-				 userdetails.setUsername(username);
+				 userdetails.setUsername(Username);
 				 service.updateUser(userdetails);
 				 return new ResponseEntity<Object>("user Updated Successfully with id "+userdetails.getId(),HttpStatus.OK);
 			 }
