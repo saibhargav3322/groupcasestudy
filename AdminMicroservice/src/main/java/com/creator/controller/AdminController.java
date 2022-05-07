@@ -1,6 +1,9 @@
 package com.creator.controller;
 
 import java.util.Arrays;
+
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +17,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.creator.jwt.JwtUtil;
 import com.creator.model.Admin;
 import com.creator.model.OrderDetails;
 import com.creator.model.Ratings;
@@ -35,10 +44,12 @@ import com.creator.model.WasherDetails;
 import com.creator.model.WasherPack;
 import com.creator.repository.AdminRepository;
 import com.creator.service.AdminService;
+import com.creator.service.MyUserDetailsService;
 
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin("*")
 public class AdminController {
 	
 	@Autowired
@@ -52,7 +63,40 @@ public class AdminController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private MyUserDetailsService userDetailsService;
+	
+	@Autowired
+	private JwtUtil jwtTokenUtil;
 	//String token;
+	//to generate jwt token
+	@PostMapping("/authenticate")
+	public ResponseEntity<?> createAuthenticationToken(@RequestParam(value="username") String username,
+			@RequestParam(value="password") String password) throws Exception {
+
+		try {
+			authenticationManager.authenticate(
+				//	new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+					new UsernamePasswordAuthenticationToken(username,password)
+					);
+		}
+		catch (BadCredentialsException e) {
+			throw new Exception("Incorrect username or password", e);
+		}
+
+
+		final UserDetails userDetails = userDetailsService
+				//.loadUserByUsername(authenticationRequest.getUsername());
+		.loadUserByUsername(username);
+		//service.setUserName(username);
+
+		final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(jwt);
+	 }
 	
 	//adding an admin
 	@PostMapping("/addadmin")
