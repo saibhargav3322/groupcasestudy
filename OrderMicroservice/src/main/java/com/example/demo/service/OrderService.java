@@ -31,7 +31,7 @@ public class OrderService {
 		repository.delete(user);
 	}
 
-	public void deleteById(int id) {
+	public void deleteById(Double id) {
 		repository.deleteById(id);
 		
 	}
@@ -50,7 +50,7 @@ public class OrderService {
 		{
 			OrderDetails o=new OrderDetails();
 			o=l.get(i);
-			if(o.getPayment().equals("success") && o.getStatus().equals("pending") && o.getAddress().getCity().equals(location))
+			if(o.getPayment().equals("success")  && o.getAddress().getCity().equals(location))
 			{
 				l1.add(o);
 			}
@@ -58,7 +58,7 @@ public class OrderService {
 		return l1;
 	}
 
-	public void deleteByid(ObjectId id) {
+	public void deleteByid(Double id) {
 		// TODO Auto-generated method stub
 		repository.deleteByid(id);
 		

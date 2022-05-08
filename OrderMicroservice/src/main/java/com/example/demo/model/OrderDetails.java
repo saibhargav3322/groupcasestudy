@@ -11,8 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class OrderDetails {
 	
 	@Id
-	ObjectId id=ObjectId.get();
+	Double id=Math.random();
 	
+	public void setId(Double id) {
+		this.id = id;
+	}
 	String CarBrand;
 
 	String CarModel;
@@ -44,7 +47,7 @@ public class OrderDetails {
 	public void setStatus(String status) {
 		Status = status;
 	}
-	public ObjectId getId() {
+	public Double getId() {
 		return id;
 	}
 	public OrderDetails() {

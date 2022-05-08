@@ -56,7 +56,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/changeaccepted/{id}/{username}")
-	public String changestatus(@PathVariable ObjectId id,@PathVariable String username)
+	public String changestatus(@PathVariable Double id,@PathVariable String username)
 	{
 		OrderDetails o=new OrderDetails();
 		o=orderRepository.findByid(id);
@@ -66,14 +66,14 @@ public class OrderController {
 		return "Order accepted";
 	}
 	
-	@GetMapping("/changecompleted/{id}")
-	public String changestatuscompleted(@PathVariable ObjectId id)
+	@GetMapping("/changecompleted/{id}/{username}")
+	public String changestatuscompleted(@PathVariable Double id,@PathVariable String username)
 	{
 		OrderDetails o=new OrderDetails();
 		o=orderRepository.findByid(id);
 		if(o.getStatus().contains("accepted"))
 		{
-		o.setStatus("completed");
+		o.setStatus("completed by "+username);
 		
 		orderService.update(o);
 		return "Order completed";
@@ -83,7 +83,7 @@ public class OrderController {
 		}
 	}
 	 @DeleteMapping("/delete/{id}")
-	 public ResponseEntity<Object> deletorder(@PathVariable ObjectId id)
+	 public ResponseEntity<Object> deletorder(@PathVariable Double id)
 	 {
 		 boolean isOrderExist=orderRepository.existsByid(id);
 		 if(isOrderExist) {

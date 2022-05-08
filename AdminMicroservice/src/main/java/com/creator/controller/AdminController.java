@@ -212,7 +212,7 @@ public class AdminController {
 	//all orders
 	@GetMapping("/allorders")
 	public List<OrderDetails> getallorders(){
-		String baseurl="http://localhost:8081/allorders";
+		String baseurl="http://order-service/order/allorders";
 		OrderDetails[] allorders=restTemplate.getForObject(baseurl, OrderDetails[].class);
 		
 		return Arrays.asList(allorders);

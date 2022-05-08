@@ -7,16 +7,16 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.demo.model.OrderDetails;
 
-public interface OrderRepository extends MongoRepository<OrderDetails, Integer>{
+public interface OrderRepository extends MongoRepository<OrderDetails, Double>{
 
 
 	List<OrderDetails> findBycustomerUsername(String username);
 
-	boolean existsByid(ObjectId id);
+	boolean existsByid(Double id);
 
-	void deleteByid(ObjectId id);
+	void deleteByid(Double id);
 
-	OrderDetails findByid(ObjectId id);
+	OrderDetails findByid(Double id);
 
 
 }

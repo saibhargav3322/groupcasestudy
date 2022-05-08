@@ -1,66 +1,108 @@
 package com.creator.model;
 
+import java.util.Date;
+
+
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="Orderdetails")
 public class OrderDetails {
-
-	@Id
-	int orderId;
-	String carName;
-	String carModel;
-	String washerName;
-	int washpackId;
-	int date;
-	int phoneNo;
 	
-	public int getOrderId() {
-		return orderId;
+	@Id
+	Double id;
+	
+	String CarBrand;
+
+	String CarModel;
+
+	String WasherUsername="TBA";
+	String customerUsername;
+	WasherPack washpack;
+	
+	String payment;
+	public String getPayment() {
+		return payment;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
-	public String getCarName() {
-		return carName;
+	public WasherPack getWashpack() {
+		return washpack;
 	}
-	public void setCarName(String carName) {
-		this.carName = carName;
+	public void setWashpack(WasherPack washpack) {
+		this.washpack = washpack;
+	}
+	String date;
+	AddressDetails address;
+	
+    String	Status="pending";
+	public String getStatus() {
+		return Status;
+	}
+	public void setStatus(String status) {
+		Status = status;
+	}
+	public Double getId() {
+		return id;
+	}
+	public OrderDetails() {
+		super();
+	}
+	public OrderDetails(String carBrand, String carModel, String washerUsername, String CustomerUsername, String date,
+			AddressDetails address,String status, WasherPack w,String payment) {
+		super();
+		CarBrand = carBrand;
+		CarModel = carModel;
+		WasherUsername = washerUsername;
+		this.customerUsername = CustomerUsername;
+		this.date = date;
+		this.address = address;
+		this.Status=status;
+		this.washpack=w;
+		this.payment=payment;
+				}
+	public String getCarBrand() {
+		return CarBrand;
+	}
+	public void setCarBrand(String carBrand) {
+		CarBrand = carBrand;
 	}
 	public String getCarModel() {
-		return carModel;
+		return CarModel;
 	}
 	public void setCarModel(String carModel) {
-		this.carModel = carModel;
+		CarModel = carModel;
 	}
-	public String getWasherName() {
-		return washerName;
+	public String getWasherUsername() {
+		return WasherUsername;
 	}
-	public void setWasherName(String washerName) {
-		this.washerName = washerName;
+	public void setWasherUsername(String washerUsername) {
+		WasherUsername = washerUsername;
 	}
-	public int getWashpackId() {
-		return washpackId;
+	public String getCustomerUsername() {
+		return customerUsername;
 	}
-	public void setWashpackId(int washpackId) {
-		this.washpackId = washpackId;
+	public void setCustomerUsername(String customerUsername) {
+		this.customerUsername = customerUsername;
 	}
-	public int getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	public int getPhoneNo() {
-		return phoneNo;
+	public AddressDetails getAddress() {
+		return address;
 	}
-	public void setPhoneNo(int phoneNo) {
-		this.phoneNo = phoneNo;
+	public void setAddress(AddressDetails address) {
+		this.address = address;
 	}
-	@Override
-	public String toString() {
-		return "OrderDetails [orderId=" + orderId + ", carName=" + carName + ", carModel=" + carModel + ", washerName="
-				+ washerName + ", washpackId=" + washpackId + ", date=" + date + ", phoneNo=" + phoneNo + "]";
-	}
+	
+	
+	
+
+	
 	
 }
