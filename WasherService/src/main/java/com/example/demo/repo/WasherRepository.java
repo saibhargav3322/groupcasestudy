@@ -9,11 +9,11 @@ import com.example.demo.model.WasherDetails;
 
 public interface WasherRepository extends MongoRepository<WasherDetails, Integer> {
 
-	WasherDetails findByName(String name);
+
 	
 	Optional<WasherDetails> findBylocation(String location);
 
-	//WasherDetails findByName(String name);
+
 
 	Optional<WasherDetails> findAllBylocation(String location);
 

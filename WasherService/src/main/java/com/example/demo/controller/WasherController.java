@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.Arrays;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,12 @@ public class WasherController {
 		 }
 	 }
 	 
+	 @GetMapping("/profile")
+	 public WasherDetails profile()
+	 {
+		 return repo.findByusername(UserName);
+	 }
+	 
 	 //delete his own account
 	 @DeleteMapping("/delete")
 	 public ResponseEntity<Object> deleteown()
@@ -200,7 +207,7 @@ public class WasherController {
 	}
 	
 	@GetMapping("/acceptanorder/{id}")
-	public String accept(@PathVariable ObjectId id)
+	public String accept(@PathVariable Double id)
 	{
 		String baseurl="http://order-service/order/changeaccepted/"+id+"/"+UserName;
 //		Map<String,ObjectId> m=new HashMap<String, ObjectId>();
@@ -211,9 +218,9 @@ public class WasherController {
 	}
 	
 	@GetMapping("/completeanorder/{id}")
-	public String completed(@PathVariable ObjectId id)
+	public String completed(@PathVariable Double id)
 	{
-		String baseurl="http://order-service/order/changecompleted/"+id;		
+		String baseurl="http://order-service/order/changecompleted/"+id+"/"+UserName;		
 		String s=restTemplate.getForObject(baseurl, String.class);
 		return s;
 	}

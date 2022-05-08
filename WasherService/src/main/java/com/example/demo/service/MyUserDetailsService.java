@@ -26,9 +26,10 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-      WasherDetails user=repository.findByusername(name);
+ 
+        WasherDetails washer=repository.findByusername(name);
        
-      return new User(user.getUsername(),user.getPassword(),new ArrayList<>());
+      return new User(washer.getUsername(),washer.getPassword(),new ArrayList<>());
     	
     }
 }
