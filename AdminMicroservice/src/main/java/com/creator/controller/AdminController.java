@@ -138,6 +138,14 @@ public class AdminController {
 		return response;
 	}
 	
+	//update pack
+	@PutMapping("/updatepack")
+	public String updatePack(@RequestBody WasherPack pack) {
+		String url="http://pack-service/washerPack/updatepack";
+		restTemplate.put(url, pack, String.class);
+		return "Pack updated successfully";
+	}
+	
 	//get all packs
 	@GetMapping("/allpacks")
 	public List<WasherPack> getPack(){
