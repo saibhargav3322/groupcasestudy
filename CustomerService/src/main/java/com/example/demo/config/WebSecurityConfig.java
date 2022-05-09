@@ -62,7 +62,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html", "/v2/api-docs",
                         "/swagger-ui/**",
                         "/webjars/**", "/user/swagger-ui/",
-                        "/user/authenticate", "/user/adduser","/userzull/**").permitAll().
+                        "/user/authenticate", "/user/adduser","/userzull/**","/user/gmail/**").permitAll().
 						anyRequest().authenticated().and().
 						exceptionHandling().and().sessionManagement()
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

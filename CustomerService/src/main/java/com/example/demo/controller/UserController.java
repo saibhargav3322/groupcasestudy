@@ -116,12 +116,13 @@ public class UserController {
 	 @PostMapping(value ="/adduser")
 	 public UserDetailsModel saveUser(@Valid @RequestBody UserDetailsModel user) {
 		 
-		 Object id=ObjectId.get();
+//		 Object id=ObjectId.get();
 		// user.setId(id);
 		 String a=user.getUsername();
 		 UserDetailsModel u= repo.findByusername(a);
 		 if(u == null)
 		 {
+			 restTemplate.postForObject("http://Notification/Notification/loginnotification/"+user.getGmail(),null,String.class);
 	 	return service.addUser(user);
 		 }
 		 
@@ -306,11 +307,19 @@ public class UserController {
 		}
 
 		//cancle the existing order
-		 @DeleteMapping("/cancelorder")
-		 public String deleteorder(){
-			 String baseurl="http://localhost:8081/delete";
-			 OrderDetails order=restTemplate.getForObject(baseurl, OrderDetails.class);
-			return "Your Order is successfully Canceled "+order;
+		 @DeleteMapping("/cancelorder/{id}")
+		 public String deleteorder(@PathVariable Double id){
+			 String baseurl="http://order-service/order/delete/"+id;
+			 restTemplate.delete(baseurl, String.class);
+			return "Your Order is successfully Canceled ";
+		 }
+		 
+		 @PostMapping("/gmail/{username}")
+		 public String gmail(@PathVariable String username)
+		 {
+			 
+			 UserDetailsModel u=repo.findByusername(username);
+			 return u.getGmail();
 		 }
 
 	
