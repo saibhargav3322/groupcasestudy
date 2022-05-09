@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.exception.ApiRequestException;
 import com.example.demo.model.OrderDetails;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.service.OrderService;
+
+
+
 
 @RestController
 @RequestMapping("/order")
@@ -29,6 +33,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	RestTemplate restTemplate;
 	
 	@PostMapping("/addorder")
 	 public String addorder( @RequestBody OrderDetails orderDetails) {
@@ -60,10 +67,20 @@ public class OrderController {
 	{
 		OrderDetails o=new OrderDetails();
 		o=orderRepository.findByid(id);
+		if(!o.getStatus().equals("cancled"))
+		{
 		o.setStatus("accepted by "+username);
 		o.setWasherUsername(username);
 		orderService.update(o);
+		String usernamecus=o.getCustomerUsername();
+		String baseurl="http://Customer-service/user/gmail/"+usernamecus;
+		String a=restTemplate.postForObject(baseurl,null, String.class);
+		restTemplate.postForObject("http://Notification/Notification/orderplaced/"+a,null,String.class);
 		return "Order accepted";
+		}
+		else {
+			return "Order has been canceled";
+		}
 	}
 	
 	@GetMapping("/changecompleted/{id}/{username}")
@@ -76,6 +93,10 @@ public class OrderController {
 		o.setStatus("completed by "+username);
 		
 		orderService.update(o);
+		String usernamecus=o.getCustomerUsername();
+		String baseurl="http://Customer-service/user/gmail/"+usernamecus;
+		String a=restTemplate.postForObject(baseurl,null, String.class);
+		restTemplate.postForObject("http://Notification/Notification/ordercompleted/"+a,null,String.class);
 		return "Order completed";
 		}
 		else {
@@ -83,17 +104,13 @@ public class OrderController {
 		}
 	}
 	 @DeleteMapping("/delete/{id}")
-	 public ResponseEntity<Object> deletorder(@PathVariable Double id)
+	 public String deletorder(@PathVariable Double id)
 	 {
-		 boolean isOrderExist=orderRepository.existsByid(id);
-		 if(isOrderExist) {
-			 orderService.deleteByid(id);
-			 return new ResponseEntity<Object>("Order deleted with id "+id,HttpStatus.OK);
-		 }
-		 else
-		 {
-			 throw new ApiRequestException("CAN NOT DELETE ORDER,AS ORDER NOT FOUND WITH THIS ID ::");
-		 }
+			OrderDetails o=new OrderDetails();
+			o=orderRepository.findByid(id);
+			o.setStatus("cancled");
+			orderService.update(o);
+			return "Order cancled";
 	 }
 			
 }
