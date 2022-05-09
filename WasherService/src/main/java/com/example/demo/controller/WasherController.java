@@ -214,6 +214,7 @@ public class WasherController {
 //		m.put("id", id );
 		
 		String s=restTemplate.getForObject(baseurl, String.class);
+		
 		return s;
 	}
 	
