@@ -108,9 +108,9 @@ public class OrderController {
 	 {
 			OrderDetails o=new OrderDetails();
 			o=orderRepository.findByid(id);
-			o.setStatus("cancled");
+			o.setStatus("cancelled");
 			orderService.update(o);
-			return "Order cancled";
+			return "Order cancelled";
 	 }
 			
 }
