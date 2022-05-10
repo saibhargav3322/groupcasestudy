@@ -65,8 +65,8 @@ public class AdminService {
 	HttpHeaders headers = new HttpHeaders();
 	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 	MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-	map.add("password", "sai");
-	map.add("username", "sai");
+	map.add("password", "user");
+	map.add("username", "user");
 	HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 	//RestTemplate restTemplate = new RestTemplate();
 	authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL,
@@ -93,8 +93,8 @@ public class AdminService {
 	HttpHeaders headers = new HttpHeaders();
 	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 	MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-	map.add("password", "raju");
-	map.add("username", "raju");
+	map.add("password", "washer");
+	map.add("username", "washer");
 	HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 	//RestTemplate restTemplate = new RestTemplate();
 	authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL,
