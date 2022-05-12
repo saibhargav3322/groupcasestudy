@@ -19,7 +19,14 @@ public class OrderDetails {
 	String WasherUsername="TBA";
 	String customerUsername;
 	WasherPack washpack;
+	long phonenumber;
 	
+	public long getPhone_number() {
+		return phonenumber;
+	}
+	public void setPhone_number(long phone_number) {
+		this.phonenumber = phone_number;
+	}
 	String payment;
 	public String getPayment() {
 		return payment;

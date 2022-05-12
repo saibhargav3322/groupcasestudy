@@ -269,7 +269,7 @@ public class UserController {
 		//to order a wash
 		@PostMapping("/addorder")
 		 public String addorder(@RequestParam String carbrand,@RequestParam String carmodel,
-				 @RequestParam String date,@RequestParam String housenumber,@RequestParam String streetname,@RequestParam String landmark ,@RequestParam int packid,@RequestParam String payment) {
+				 @RequestParam String date,@RequestParam String housenumber,@RequestParam String streetname,@RequestParam String landmark ,@RequestParam int packid,@RequestParam String payment,@RequestParam long phonenumber) {
 	    
 			OrderDetails order=new OrderDetails();
 			AddressDetails address=new AddressDetails();
@@ -283,6 +283,7 @@ public class UserController {
 			address.setCity(service.getdetails().getLocation());
 			order.setAddress(address);
 			order.setPayment(payment);
+			order.setPhone_number(phonenumber);
 			
 			String packurl="http://pack-service/washerPack/getpack/"+packid;
 			
